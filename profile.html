@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Plofile｜WebPortfolio</title>
+    <meta name="description" content="自己紹介を行ったページです">
+    <meta name="keywords" content="自己紹介,Webポートフォリオ">
+    <link rel="stylesheet" href="stylesheet2.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <!-- ＃リンクのスムーズスクロール -->
+    <script>
+      $(function(){
+        // #で始まるリンクをクリックしたら実行
+        $('a[href^="#"]').click(function() {
+          // スクロールの速度
+          var speed = 1000; // ミリ秒で記述
+          var href= $(this).attr("href");
+          var target = $(href == "#" || href == "" ? 'html' : href);
+          var position = target.offset().top;
+          $('body,html').animate({scrollTop:position}, speed, 'swing');
+          return false;
+        });
+      });
+    </script>
+    <title>jQuery</title>
+  </head>
+
+  <body>
+    <header outouchstart>
+      <div id="header_logo">
+        <a href="index1.html">
+          <h1 class="logo">Portfolio</h1>
+        </a>
+        <nav class="menu">
+          <ul>
+            <li class="menu__item"><a href="profile.html">Plofile</a></li>
+            <li class="menu__item"><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    
+  
+    <div id="main_wrapper">
+      <img src="images/backimage.JPG" alt="ヘッダー画像" class="header-image">
+      <div class="cf">
+        <div id="main_logo">
+          <h1 class="ch__title">Plofile</h1>
+            <div id="sentence">
+              <img src="images/plofile.jpg" alt="自分の画像" class="ch__title__image">
+              <h2 class="ch__title__name">若林美優<h2>
+              <h4 class="ch__title__kana">ワカバヤシミユ</h4>
+              <p class="ch__title__sentence">1997/07/25</p>
+              <p class="ch__title__sentence">上智大学理工学部情報理工学科４年</p>
+              <p class="ch__title__sentence">千葉県市川市生まれ</p>
+              <p class="ch__title__sentence">9歳で引っ越し、神奈川県川崎市在住</p> 
+              <p class="ch__title__sentence">趣味:ゲーム、旅行</p>
+              <p class="ch__title__sentence">特技:バドミントン、ピアノ</p>
+              <a href="https://www.facebook.com/profile.php?id=100028585969788" class="ch__title__SNS"><img src="images/facebook.png" alt="facebook"></a>
+              <a href="https://www.instagram.com/miyu72597/?hl=ja" class="ch__title__SNS"><img src="images/insta.png" alt="insta"></a>
+              <a href="https://twitter.com/mame_love_siba" class="ch__title__SNS"><img src="images/twitter.png" alt="twitter"></a>            
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="canvas-container">
+      <canvas id="sineCanvas" width="800" height="1000"></canvas>
+    </div>
+
+    <script type="text/javascript">
+      (function () {
+
+        var unit = 100,
+          canvas, context, canvas2, context2,
+          height, width, xAxis, yAxis,
+          draw;
+        
+        /**
+         * Init function.
+         * 
+         * Initialize variables and begin the animation.
+         */
+        function init() {
+            
+          canvas = document.getElementById("sineCanvas");
+            
+          canvas.width = document.documentElement.clientWidth; //Canvasのwidthをウィンドウの幅に合わせる
+          canvas.height = 150;
+            
+          context = canvas.getContext("2d");
+            
+          height = canvas.height;
+          width = canvas.width;
+            
+          xAxis = Math.floor(height/2);
+          yAxis = 0;
+            
+          draw();
+        }
+        
+        /**
+         * Draw animation function.
+         * 
+         * This function draws one frame of the animation, waits 20ms, and then calls
+         * itself again.
+         */
+        function draw() {
+            
+          // キャンバスの描画をクリア
+          context.clearRect(0, 0, width, height);
+        
+          //波を描画
+          drawWave('#96d9ff', 0.3, 3, 0);
+          drawWave('#10c2cd', 0.4, 2, 250);
+          drawWave('#93DEF1', 0.2, 1.6, 100);
+            
+          // Update the time and draw again
+          draw.seconds = draw.seconds + .009;
+          draw.t = draw.seconds*Math.PI;
+          setTimeout(draw, 35);
+        };
+        draw.seconds = 0;
+        draw.t = 0;
+        
+        /**
+        * 波を描画
+        * drawWave(色, 不透明度, 波の幅のzoom, 波の開始位置の遅れ)
+        */
+        function drawWave(color, alpha, zoom, delay) {
+          context.fillStyle = color;
+          context.globalAlpha = alpha;
+        
+          context.beginPath(); //パスの開始
+          drawSine(draw.t / 0.5, zoom, delay);
+          context.lineTo(width + 10, height); //パスをCanvasの右下へ
+          context.lineTo(0, height); //パスをCanvasの左下へ
+          context.closePath() //パスを閉じる
+          context.fill(); //塗りつぶす
+        }
+        
+        /**
+         * Function to draw sine
+         * 
+         * The sine curve is drawn in 10px segments starting at the origin. 
+         * drawSine(時間, 波の幅のzoom, 波の開始位置の遅れ)
+         */
+        function drawSine(t, zoom, delay) {
+        
+            // Set the initial x and y, starting at 0,0 and translating to the origin on
+            // the canvas.
+            var x = t; //時間を横の位置とする
+            var y = Math.sin(x)/zoom;
+            context.moveTo(yAxis, unit*y+xAxis); //スタート位置にパスを置く
+            
+            // Loop to draw segments (横幅の分、波を描画)
+            for (i = yAxis; i <= width + 10; i += 10) {
+                x = t+(-yAxis+i)/unit/zoom;
+                y = Math.sin(x - delay)/3;
+                context.lineTo(i, unit*y+xAxis);
+            }
+        }
+        
+        init();
+            
+        })();
+    </script>
+
+    <div id="top">
+      <h1 class="title">History</h1>
+      <div class="cp_timeline04">
+        <div class="timeline_item">
+          <div class="time_date">
+            <p class="time">2010</p>
+            <p class="flag">鷗友学園女子中等学校入学</p>
+          </div>
+          <div class="desc">
+            <p>中学受験して、私立の学校に入学<br>
+              小学校の頃から好きだったバドミントン部に入り、3年間続けた<br>
+              朝練や夏合宿などで忙しい中、勉強と両立して頑張った</p>
+          </div>
+        </div>
+        <div class="timeline_item">
+          <div class="time_date">
+            <p class="time">2013</p>
+            <p class="flag">鷗友学園女子高等学校入学</p>
+          </div>
+          <div class="desc">
+            <p>中高一貫校だったので、そのまま受験せずに入学<br>
+              同じバドミントン部をさらに2年間と半年続けた<br>
+              クラスでも部活でも書記をやった<br>
+              ここまで一度もプログラム経験はなかったが、<br>
+              パソコンやゲーム機器を触るのが好きで情報科を目指して受験</p>
+          </div>
+        </div>
+        <div class="timeline_item">
+          <div class="time_date">
+            <p class="time">2016</p>
+            <p class="flag">上智大学理工学部情報理工学科入学</p>
+          </div>
+          <div class="desc">
+            <p>初めてプログラミングを体験して、今まで習ってきたどの分野よりも<br>
+              面白く感じ、専門科目を受けることが楽しかった<br>
+              バトミントンサークルに所属し、週1回で活動している<br>
+              英語検定の試験監督を不定期にやっていた</p>
+          </div>
+        </div>
+        <div class="timeline_item">
+          <div class="time_date">
+            <p class="time">~2019</p>
+            <p class="flag">大学4年間</p>
+          </div>
+          <div class="desc">
+            <p>2018年:8月上智開催のサマーハッカソンに出て、マイクロソフト賞をもらう</p>
+            <p>2019年:4月に第一希望の矢入研究室に配属、院に進むことを決意する</p>
+            <p>　　　  5月~7月までGoogleのインターンに参加</p>
+            <p>　　　  7月上智大学学業優秀賞受賞</p>
+          </div>
+        </div>
+      </div>
+          
+      <h1 class="title">Skills</h1>
+      <h2 class="skills">HTML5, CSS3, Javascript, Java, Python, C, R</h2>
+        <div class="skill-item">
+          <p class="p1"><img src="images/HTML5.png" alt="HTML5"></p>
+          <p class="p1"><img src="images/CSS3.png" alt="css3"></p>
+          <p class="p1"><img src="images/JS.png" alt="JS"></p>
+        </div>
+        <div class="skill-item">
+          <p class="p1"><img src="images/java.png" alt="Java"></p>
+          <p class="p1"><img src="images/python.png" alt="Python"></p>
+          <p class="p1"><img src="images/c.png" alt="c"></p>
+          <p class="p1"><img src="images/R.png" alt="R"></p>
+        </div>
+      </div>
+    </div><!-- #main_wrapper -->
+
+  
+    <footer>
+        <div id="footer_inner" class="cf">
+          <dl id="footer_left">
+            <h1 class="footerLogo">Portfolio</h1>
+            <dd class="footerLogo__Author">作成者:若林美優 <br>TEL: 090-6174-1576</dd>
+          </dl>
+          <div id="SNS">
+            <a href="https://www.facebook.com/profile.php?id=100028585969788"><img src="images/facebook.png" alt="facebook"></a>
+            <a href="https://www.instagram.com/miyu72597/?hl=ja"><img src="images/insta.png" alt="insta"></a>
+            <a href="https://twitter.com/mame_love_siba"><img src="images/twitter.png" alt="twitter"></a>
+          </div>
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
+          <div id="page_top"><a href="#main_wrapper" class="ToTop"></a></div>
+        </div>
+      </footer>
+  </body>
+</html>
+
+
+

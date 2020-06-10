@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>WebPortfolio｜Miyu</title>
+    <meta name="description" content="自己紹介を行ったページです">
+    <meta name="keywords" content="自己紹介,Webポートフォリオ">
+    <link rel="stylesheet" href="stylesheet1.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <!-- ＃リンクのスムーズスクロール -->
+    <script>
+      $(function(){
+        // #で始まるリンクをクリックしたら実行
+        $('a[href^="#"]').click(function() {
+          // スクロールの速度
+          var speed = 1000; // ミリ秒で記述
+          var href= $(this).attr("href");
+          var target = $(href == "#" || href == "" ? 'html' : href);
+          var position = target.offset().top;
+          $('body,html').animate({scrollTop:position}, speed, 'swing');
+          return false;
+        });
+      });
+    </script>
+    <title>jQuery</title>
+
+    
+  </head>
+
+  <body>
+    <header outouchstart>
+      <div id="header_logo">
+        <a href="index1.html">
+        <h1 class="logo">Portfolio</h1>
+        </a>
+        <nav class="menu">
+          <ul>
+            <li class="menu__item"><a href="profile.html">Plofile</a></li>
+            <li class="menu__item"><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+  
+    <div id="main_wrapper">
+      <div class="cf">
+        <div id="main_logo">
+          <img src="images/Miyu.png" alt="rogo画像">
+          <p>上智大学理工学部情報理工学科４年生、<br>
+            若林美優の自己紹介ページです</p>
+          <a href="#main_wrapper2" class="btn-flat-vertical-border">WORKS</a>
+        </div>
+      </div>
+    </div>
+  
+    <div id="canvas-container">
+      <canvas id="sineCanvas" width="800" height="1000"></canvas>
+    </div>
+    <script type="text/javascript">
+    (function () {
+
+      var unit = 100,
+        canvas, context, canvas2, context2,
+        height, width, xAxis, yAxis,
+        draw;
+        
+      /**
+      * Init function.
+      * 
+      * Initialize variables and begin the animation.
+      */
+      function init() {
+            
+        canvas = document.getElementById("sineCanvas");
+            
+        canvas.width = document.documentElement.clientWidth; //Canvasのwidthをウィンドウの幅に合わせる
+        canvas.height = 200;
+            
+        context = canvas.getContext("2d");
+            
+        height = canvas.height;
+        width = canvas.width;
+            
+        xAxis = Math.floor(height/2);
+        yAxis = 0;
+            
+        draw();
+      }
+        
+      /**
+      * Draw animation function.
+      * 
+      * This function draws one frame of the animation, waits 20ms, and then calls
+      * itself again.
+      */
+      function draw() {
+            
+        // キャンバスの描画をクリア
+        context.clearRect(0, 0, width, height);
+        
+        //波を描画
+        drawWave('#96d9ff', 0.3, 3, 0);
+        drawWave('#10c2cd', 0.4, 2, 250);
+        drawWave('#93DEF1', 0.2, 1.6, 100);
+            
+        // Update the time and draw again
+        draw.seconds = draw.seconds + .009;
+        draw.t = draw.seconds*Math.PI;
+        setTimeout(draw, 35);
+      };
+
+      draw.seconds = 0;
+      draw.t = 0;
+        
+      /**
+      * 波を描画
+      * drawWave(色, 不透明度, 波の幅のzoom, 波の開始位置の遅れ)
+      */
+      function drawWave(color, alpha, zoom, delay) {
+        context.fillStyle = color;
+        context.globalAlpha = alpha;
+        
+        context.beginPath(); //パスの開始
+        drawSine(draw.t / 0.5, zoom, delay);
+        context.lineTo(width + 10, height); //パスをCanvasの右下へ
+        context.lineTo(0, height); //パスをCanvasの左下へ
+        context.closePath() //パスを閉じる
+        context.fill(); //塗りつぶす
+      }
+        
+      /**
+      * Function to draw sine
+      * 
+      * The sine curve is drawn in 10px segments starting at the origin. 
+      * drawSine(時間, 波の幅のzoom, 波の開始位置の遅れ)
+      */
+      function drawSine(t, zoom, delay) {
+        
+        // Set the initial x and y, starting at 0,0 and translating to the origin on
+        // the canvas.
+        var x = t; //時間を横の位置とする
+        var y = Math.sin(x)/zoom;
+        context.moveTo(yAxis, unit*y+xAxis); //スタート位置にパスを置く
+            
+        // Loop to draw segments (横幅の分、波を描画)
+        for (i = yAxis; i <= width + 10; i += 10) {
+          x = t+(-yAxis+i)/unit/zoom;
+          y = Math.sin(x - delay)/3;
+          context.lineTo(i, unit*y+xAxis);
+          }
+      }
+        
+      init();
+            
+      })();
+    </script>
+
+    <div id="main_wrapper2">
+      <div class="cf">
+        <div id="title_works">
+          <h3 class="title">Works</h3>
+          <ul id="works_list">
+            <li class="cf">
+              <dl>
+                <dt class="cf__workitem">
+                  <img src="images/works1.png" alt="Works1の画像" class="cf__workitem__image">
+                  <span class="new_category_tag">ウェブデザイン</span>
+                </dt>
+                <dd class="cf__worksentence">
+                  <h4><a href="#" class="cf__worksentence__title">水族館紹介のWebページ</a></h4>
+                  <span class="new_date">2017年秋学期の授業</span>
+                  <span class="new_tag">HTML,CSS</span>
+                  <p class="cf__worksentence__version">初めて作ったWebページです<br>
+                    授業の最終課題だったので授業で扱ったことを詰め込みました<br>
+                    久しぶりに開いたら型が崩れていたので後々修正します
+                    <a href="firsthtml/A1678493.htm" class="cf__worksentence__jump">...作成したHTMLはこちら</a></p>
+                </dd>
+              </dl>
+            </li>
+  
+            <li class="cf">
+              <dl>
+                <dt class="cf__workitem">
+                  <img src="images/works2.png" alt="Works2の画像" class="cf__workitem__image">
+                  <span class="new_category_tag">プログラミング</span>
+                </dt>
+                <dd class="cf__worksentence">
+                  <h4><a href="#" class="cf__worksentence__title">アナグラムの作成</a></h4>
+                  <span class="new_date">2019年</span>
+                  <span class="new_tag">python,プログラミング</span>
+                  <p class="cf__worksentence__version">インターン先の課題で作成したものです<br>
+                    指定された文字を使って出来るだけ長い単語を検出するプログラムを作成しました<br>
+                    Pythonだからか、実行時間が長くなってしまったので改善したいです
+                    <a href="https://github.com/MiyuWaka/hw1/blob/master/hw1-3b.py" class="cf__worksentence__jump">...コードはこちら</a></p>
+                  </p>
+                </dd>
+              </dl>
+            </li>
+  
+            <li class="cf">
+              <dl>
+                <dt class="cf__workitem">
+                  <img src="images/works3.png" alt="Works3の画像" class="cf__workitem__image">
+                  <span class="new_category_tag">プログラミング</span>
+                </dt>
+                <dd class="cf__worksentence">
+                  <h4><a href="#" class="cf__worksentence__title">計算機の作成</a></h4>
+                  <span class="new_date">2019年</span>
+                  <span class="new_tag">python,プログラミング</span>
+                  <p class="cf__worksentence__version">インターン先の課題で作成したものです<br>
+                    入力された数式を計算するようにプログラムを作成しました<br>
+                    テストケースも考えてあります
+                    <a href="https://github.com/MiyuWaka/hw3/blob/master/Program1.py" class="cf__worksentence__jump">...コードはこちら</a></p>
+                </dd>
+              </dl>
+            </li>
+  
+            <li class="cf">
+              <dl>
+                <dt class="cf__workitem">
+                  <img src="images/bfs.png" alt="Works4の画像" class="cf__workitem__image">
+                  <span class="new_category_tag">プログラミング</span>
+                </dt>
+                <dd class="cf__worksentence">
+                  <h4><a href="#" class="cf__worksentence__title">BFSの実装</a></h4>
+                  <span class="new_date">2019年</span>
+                  <span class="new_tag">python,プログラミング</span>
+                  <p class="cf__worksentence__version">一緒にインターンをやっていた人たちの中でフォローをし合ったデータを使用してBFSを実装し、<br>
+                    フォロー関係を辿ってある人からある人までは何ステップ必要かをだすものを作りました<br>
+                    ウィキペディアのリンクで同じことをこれからやりたいです
+                    <a href="https://github.com/MiyuWaka/hw4/blob/master/BFS.py" class="cf__worksentence__jump">...コードはこちら</a></p>    
+                </dd>
+              </dl>
+            </li>
+  
+            <li class="cf">
+              <dl>
+                <dt class="cf__workitem">
+                  <img src="images/works5.jpg" alt="Works5の画像" class="cf__workitem__image">
+                  <span class="new_category_tag">プログラミング</span>
+                </dt>
+                <dd class="cf__worksentence">
+                  <h4><a href="#" class="cf__worksentence__title">パタトクカシーー</a></h4>
+                  <span class="new_date">2019年</span>
+                  <span class="new_tag">python,プログラミング</span>
+                  <p class="cf__worksentence__version">ピタゴラスイッチの言葉遊びでパトカー＋タクシー＝パタトクカシーーという遊びがあるのですが、<br>
+                    これをPythonとGoogle AppEngineを使用して作りました<br>
+                    次は電車の乗り換え案内のWebサービスも作ってみたいです
+                    <a href="https://github.com/MiyuWaka/hw5/tree/master/python27" class="cf__worksentence__jump">...コードはこちら</a></p>    
+                </dd>
+              </dl>
+            </li>
+          </ul>
+          <div id="pagination">
+            <ul class="cf">
+              <li class="paginationNum"><a href="#" class="paginationNum__item">1</a></li>
+              <li class="paginationNum"><a href="#" class="paginationNum__item">2</a></li>
+              <li class="paginationNum"><a href="#" class="paginationNum__item">3</a></li>
+              <li class="paginationNum"><a href="#" class="paginationNum__item">4</a></li>
+              <li class="paginationNum"><a href="#" class="paginationNum__item">NEXT >></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div><!-- #main_wrapper -->
+  
+  
+    <footer>
+      <div id="footer_inner" class="cf">
+        <dl id="footer_left">
+          <h1 class="footerLogo">Portfolio</h1>
+          <dd class="footerLogo__Author">作成者:若林美優 <br>TEL: 090-6174-1576</dd>
+        </dl>
+        <div id="SNS">
+            <a href="https://www.facebook.com/profile.php?id=100028585969788"><img src="images/facebook.png" alt="facebook"></a>
+            <a href="https://www.instagram.com/miyu72597/?hl=ja"><img src="images/insta.png" alt="insta"></a>
+            <a href="https://twitter.com/mame_love_siba"><img src="images/twitter.png" alt="twitter"></a>
+        </div>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
+        <div id="page_top"><a href="#main_wrapper" class="ToTop"></a></div>
+      </div>
+    </footer>
+  </body>
+</html>
+

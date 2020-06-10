@@ -1,0 +1,409 @@
+@charset "utf-8";
+
+/* ========================================
+    リセットcss
+========================================= */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-style:normal;
+    font-weight: normal;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+html{overflow-y: scroll;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,q:before, q:after {content: ''; content: none;}
+input, textarea{margin: 0; padding: 0;}
+ol, ul{list-style:none;}
+table{border-collapse: collapse; border-spacing:0;}
+caption, th{text-align: left;}
+a:focus {outline:none;}
+
+div#test {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    opacity: 0.5;
+}
+
+/* micro clearfix */
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+.cf:after {clear: both;}
+.cf {*zoom: 1;}
+
+
+
+/*
+========================================
+    基本設定
+=========================================
+ */
+
+ body {
+  font-family: "Avenir Next";
+  color: #434343;
+  background-color: #ecf1f8;
+}
+
+a {
+  color: #434343;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #f6ac4d;
+}
+
+li {
+  list-style: none;
+}
+
+/*
+========================================
+  ヘッダー
+=========================================
+*/
+header {
+  width: 100%;
+  height: 77px;
+  background-color: #fff;
+  border-bottom: 3px solid #67c7ff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  padding-top: 25px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  opacity: 0.8;
+}
+
+#header_logo {
+  width: 960px;
+  height: 52px;
+  margin: 0 auto;
+}
+
+.logo{
+  font-size:50px;
+  float: left;
+}
+
+.menu {
+  font-size: 18px;
+  float: right;
+  margin-top: 30px;
+}
+
+.menu__item{
+  float: left;
+  border-left: 1px dotted #434343;
+  padding-left: 20px;
+  margin-left: 20px;
+}
+
+
+.menu__item:last-child {
+  border-right: 1px dotted #434343;
+  padding-right: 20px;
+}
+
+/*
+ ========================================
+    画像部分
+=========================================
+*/
+
+#main_wrapper {
+  width: 960px;
+  height: auto;
+  margin: 30px auto 0 auto;
+}
+
+.header-image{
+  position: absolute;
+  top: 0;
+  left:0;
+  z-index: 0;
+}
+
+#main_logo{
+  text-align:center;
+}
+
+ /* ========================================
+  文章部分
+========================================= */
+
+.ch__title{
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.9;
+  color:#fff;
+}
+
+.ch__title__image {
+  position: relative;
+  color:#fff;
+  background-color: #fff;
+  border: 1px solid #dcdddf;
+  border-radius: 40px;
+}
+
+.ch__title__name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.ch__title__kana {
+  font-size: 6px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #dcdddf;
+  height: 30px;
+  color:#757575;
+}
+
+
+.ch__title__sentence {
+  text-align: center;
+  height: 30px;
+}
+
+.ch__title__SNS {
+  text-align: center;
+}
+
+.ch__title__SNS:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+
+
+/* ========================================
+  TIMELINE
+========================================= */
+
+#top {
+  width: 960px;
+  height: auto;
+  margin: 30px auto 0 auto;
+}
+
+.title{
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.5;
+}
+
+.cp_timeline04 {
+  position: relative;
+  margin: 3em 0px;
+  padding-bottom: 2em;
+}
+
+.cp_timeline04:before {
+  position: absolute;
+  top: 0px;
+  left: 16px;
+  width: 3px;
+  height: 100%;
+  content: '';
+  background: #1e43e9;
+}
+
+.cp_timeline04 .timeline_item {
+  margin: 0px 0px 0px 80px;
+}
+
+.cp_timeline04 .timeline_item .time_date .time {
+  font-family: serif;
+  font-size: 6em;
+  font-weight: bold;
+  position: relative;
+  margin: 0;
+  letter-spacing: 3px;
+  color: rgba(30, 77, 233, 0.1);
+}
+
+.cp_timeline04 .timeline_item .time_date .time:before {
+  position: absolute;
+  top: 50%;
+  left: -42px;
+  width: 10px;
+  height: 10px;
+  content: '';
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  border: 3px solid #1e98e9;
+  background: #fff;
+}
+
+.cp_timeline04 .timeline_item .time_date .flag {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0;
+  margin-top: -60px;
+  color: #100e88;
+}
+
+.cp_timeline04 .timeline_item .desc {
+  font-size: 0.8em;
+  line-height: 20px;
+  margin-top: 10px;
+  padding-left: 20px;
+  border-left: 1px solid #0e1a88;
+}
+
+@media only screen and (max-width: 767px) {
+  .cp_timeline04:before {
+  left: 15px;
+  }
+}
+
+.cp_timeline04 .timeline_item .time_date .time:before {
+  left: -30px;
+}
+
+.cp_timeline04 .timeline_item {
+  margin: 0px 0px 0px 40px;
+}
+
+.cp_timeline04 .timeline_item .desc {
+  padding-left: 0px;
+  border-top: 1px solid #0e3588;
+  border-left: none;
+}
+
+/* ========================================
+  SKILL
+========================================= */
+.skills {
+  font-size: 20px;
+  text-align: center;
+}
+
+.skill-item {
+  padding:10px;
+  text-align:center;
+}
+
+.skill-item .p1{
+  display:inline-block;
+  padding:5px;
+}
+
+/* ========================================
+  フッター
+========================================= */
+footer {
+  width: 100%;
+  height: 140px;
+  background-color: rgb(160, 196, 250);
+  border-top: 1px solid #dcdddf;
+  padding: 20px 0;
+  margin-top: 60px;
+}
+
+#footer_inner {
+  width: 960px;
+  height: auto;
+  margin: 0 auto;
+}
+
+#footer_left {
+  float: left;
+}
+
+.footerLogo {
+  font-size:50px;
+  color:#fff;
+}
+
+.footerLogo__Author{
+  color:#fff;
+  font-size: 13px;
+  line-height: 21px;
+}
+
+#SNS {
+  width: auto;
+  height: auto;
+  float: right;
+}
+
+#SNS :hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#page_top{
+  width: 90px;
+  height: 90px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  opacity: 0.6;
+}
+
+.ToTop{
+  position: relative;
+  display: block;
+  width: 90px;
+  height: 90px;
+  text-decoration: none;
+}
+
+.ToTop::before{
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: '\f102';
+  font-size: 25px;
+  color: #3f98ef;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: -40px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+}
+.ToTop::after{
+  content: 'PAGE TOP';
+  font-size: 13px;
+  color: #fff;
+  position: absolute;
+  top: 45px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+  color: #3f98ef;
+}
